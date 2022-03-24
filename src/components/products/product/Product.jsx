@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+//General react imports
+import React from "react";
+
+//MUI components
 import {
   Card,
   CardMedia,
@@ -7,19 +10,13 @@ import {
   Typography,
   IconButton,
 } from "@material-ui/core";
-
 import { AddShoppingCart } from "@material-ui/icons";
+
+//Styles
 import UseStyles from "./styles";
-import { commerceCartAction } from "../../../actions/commerceCartActions/commerceCartAction";
-import { useDispatch } from "react-redux";
-
-const Product = ({ product }) => {
-  const [item, setItem] = useState([]);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(commerceCartAction());
-  }, [dispatch]);
-
+//Main Component
+const Product = ({ product, handleAddToCart }) => {
+  //Styles
   const classes = UseStyles();
   return (
     <Card className={classes.root}>
@@ -45,7 +42,7 @@ const Product = ({ product }) => {
       </CardContent>
       <CardActions className={classes.cardActions} disableSpacing>
         <IconButton
-          onClick={() => setItem(product.id)}
+          onClick={() => handleAddToCart(product.id, 1)}
           aria-label="Add to cart"
         >
           <AddShoppingCart />

@@ -1,4 +1,8 @@
+//General react imports
 import React from "react";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router";
+//MUI icons
 import {
   AppBar,
   Toolbar,
@@ -9,17 +13,25 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ShoppingBasket } from "@material-ui/icons";
-
-import logo from "../assets/logo.png";
+//Assests
+import logo from "../../assets/logo.png";
+//Styles
 import UseStyles from "./styles";
 
-const Navbar = () => {
+const Navbar = ({ totalItem }) => {
+  const location = useLocation();
   const classes = UseStyles();
   return (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
-          <Typography variant="h6" className={classes.title} color="inherit">
+          <Typography
+            component={Link}
+            to="/"
+            variant="h6"
+            className={classes.title}
+            color="inherit"
+          >
             <img
               src={logo}
               alt="Bonjour logo"
@@ -30,11 +42,18 @@ const Navbar = () => {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.button}>
-            <IconButton aria-label="Show cart items" color="inherit">
-              <Badge badgeContent={2} color="secondary">
-                <ShoppingBasket />
-              </Badge>
-            </IconButton>
+            {location.pathname === "/" && (
+              <IconButton
+                component={Link}
+                to="/cart"
+                aria-label="Show cart items"
+                color="inherit"
+              >
+                <Badge badgeContent={totalItem} color="secondary">
+                  <ShoppingBasket />
+                </Badge>
+              </IconButton>
+            )}
           </div>
         </Toolbar>
       </AppBar>
